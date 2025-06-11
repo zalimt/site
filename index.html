@@ -56,8 +56,9 @@
   <header>
     <div class="container">
       <div class="header-inner">
-        <a href="https://p-travelassist.com" class="logo">
-            <img src="images/P-TA-full-logo-white.svg" alt="PTA">
+        <a href="#" class="logo">
+          <img src="images/logo.png" alt="BEONIX Festival">
+          <span>BEONIX</span>
         </a>
         
         <nav class="nav-desktop">
@@ -65,29 +66,29 @@
             <li><a href="#overview">OVERVIEW</a></li>
             <li><a href="#lineup">LINEUP</a></li>
             <li><a href="#packages">PACKAGES</a></li>
-            <li><a href="#venue">VENUE</a></li>
-            <li><a href="#hotels" class="btn btn-primary">BOOK NOW</a></li>
+            <li><a href="#hotels">HOTELS</a></li>
+            <li><a href="#faq">FAQ</a></li>
           </ul>
         </nav>
-        
-        <div class="menu-toggle" id="menuToggle">
+
+        <button class="menu-toggle" aria-label="Toggle Menu">
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
     </div>
-
-    <div class="mobile-menu" id="mobileMenu">
-      <ul>
-        <li><a href="#overview" class="mobile-link">OVERVIEW</a></li>
-        <li><a href="#lineup" class="mobile-link">LINEUP</a></li>
-        <li><a href="#packages" class="mobile-link">PACKAGES</a></li>
-        <li><a href="#venue" class="mobile-link">VENUE</a></li>
-        <li><a href="#hotels" class="mobile-link">BOOK NOW</a></li>
-      </ul>
-    </div>
   </header>
+
+  <nav class="mobile-menu">
+    <ul>
+      <li><a href="#overview">OVERVIEW</a></li>
+      <li><a href="#lineup">LINEUP</a></li>
+      <li><a href="#packages">PACKAGES</a></li>
+      <li><a href="#hotels">HOTELS</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
 
   <!-- Hero Section - Exactly matches beonix-hero.png -->
   <section class="hero" id="hero">
@@ -120,7 +121,7 @@
       <div class="hero-cta">SECURE YOUR EXCLUSIVE TRAVEL PACKAGE NOW</div>
       
       <div class="hero-button">
-        <a href="#booking">BOOK NOW</a>
+        <a href="#hotels">BOOK NOW</a>
       </div>
       
       <div class="hero-note">
@@ -147,8 +148,8 @@
   <!-- Festival Overview -->
   <section class="overview" id="overview">
     <div class="container">
-      <h2 class="section-title">EMBARK ON A COSMIC JOURNEY</h2>
-      <p class="section-subtitle">BEONIX Festival returns with its 4th edition, bringing an unforgettable electronic music experience where you can drop all your masks, dance like never before, and give free rein to all your secret desires.</p>
+      <h2 class="section-title">Festival Packages</h2>
+      <p class="section-subtitle">Choose from our carefully crafted festival packages, designed to provide the ultimate festival experience with premium accommodations and exclusive perks.</p>
       
       <div class="features">
           <div class="feature-card">
@@ -218,8 +219,8 @@
   <!-- Packages Section -->
   <section class="packages" id="packages">
     <div class="container">
-      <h2 class="section-title">EXCLUSIVE PACKAGES</h2>
-      <p class="section-subtitle">Secure your complete BEONIX experience with our curated travel packages including festival tickets, accommodation, and more.</p>
+      <h2 class="section-title">FESTIVAL PACKAGES</h2>
+      <p class="section-subtitle">Discover our exclusive festival packages, combining premium accommodations, VIP access, and unforgettable experiences for the ultimate festival adventure.</p>
       
       <div class="package-cards">
         <div class="package-card" id="standardPackage">
@@ -238,12 +239,11 @@
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-secondary package-select-btn" data-package="standard">SELECT PACKAGE</button>
+            <button class="btn btn-secondary package-select-btn" data-package="standard">SPECIAL OFFER</button>
           </div>
         </div>
         
-        <div class="package-card" id="premiumPackage">
-          <div class="package-popular">MOST POPULAR</div>
+        <div class="package-card">
           <div class="package-header">
             <h3 class="package-title">VIP STANDING</h3>
             <div class="package-price">€480</div>
@@ -260,7 +260,7 @@
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-secondary package-select-btn" data-package="premium">SELECT PACKAGE</button>
+            <button class="btn btn-secondary package-select-btn" data-package="premium">SPECIAL OFFER</button>
           </div>
         </div>
         
@@ -282,7 +282,7 @@
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-secondary package-select-btn" data-package="luxury">SELECT PACKAGE</button>
+            <button class="btn btn-secondary package-select-btn" data-package="luxury">SPECIAL OFFER</button>
           </div>
         </div>
       </div>
@@ -374,7 +374,7 @@
       <div class="extended-stay-content">
         <h2>Want to Stay Longer?</h2>
         <p>Extend your BEONIX experience with beach holidays, guided tours, and exclusive yacht experiences in Cyprus.</p>
-        <button class="btn btn-primary customize-trip-btn">Customize My Trip</button>
+        <button class="btn btn-primary customize-trip-btn">CUSTOMIZE MY TRIP</button>
       </div>
     </div>
   </section>
@@ -422,37 +422,27 @@
           <input type="text" id="country" name="country" required>
         </div>
         <div class="form-group">
-          <label for="hotel">Hotel</label>
-          <select id="hotel" name="hotel" required>
-            <option value="">Select a hotel</option>
-            <option value="Four Seasons">Four Seasons</option>
-            <option value="St. Paul">St. Paul (Old Town)</option>
-            <option value="Grand Resort">Grand Resort</option>
-            <option value="NYX">NYX Hotel</option>
-            <option value="Crowne Plaza">Crowne Plaza Limassol</option>
-          </select>
+          <label for="hotel">Selected Hotel</label>
+          <input type="text" id="hotel" name="hotel" readonly>
         </div>
         <div class="form-group">
           <label for="travelers">Number of Travelers</label>
           <input type="number" id="travelers" name="travelers" min="1" required>
         </div>
         <div class="form-group">
-          <label for="notes">Notes</label>
-          <textarea id="notes" name="notes"></textarea>
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" name="notes" rows="3"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit Booking</button>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Submit Booking</button>
+          <a href="https://wa.me/+3579261722428" class="whatsapp-link">Contact us on WhatsApp</a>
+        </div>
       </form>
-      <div class="whatsapp-contact">
-        <a href="https://wa.me/your-number" class="whatsapp-link">
-          <img src="images/whatsapp-icon.svg" alt="WhatsApp">
-          Contact us on WhatsApp
-        </a>
-      </div>
     </div>
   </div>
 
   <!-- WhatsApp Float Button -->
-  <a href="https://wa.me/your-number" class="whatsapp-float" aria-label="Contact on WhatsApp">
+  <a href="https://wa.me/+3579261722428" class="whatsapp-float" aria-label="Contact on WhatsApp">
     <img src="images/whatsapp-icon.svg" alt="WhatsApp">
   </a>
 
@@ -508,22 +498,8 @@
         <div class="booking-info">
           <div class="booking-info-card">
             <div class="booking-info-header">
-              <div class="booking-info-title">Selected Package:</div>
-            </div>
-            <div class="booking-package">
-              <div>
-                <div class="booking-package-name" id="selectedPackageName">VIP STANDING</div>
-                <div class="booking-package-description" id="selectedPackageDesc">All-Days Pass (19-21 Sep)</div>
-                <a href="#packages" class="booking-change">Change package <i>▼</i></a>
-              </div>
-              <div class="booking-package-price" id="selectedPackagePrice">€480</div>
-            </div>
-          </div>
-          
-          <div class="booking-info-card">
-            <div class="booking-info-header">
               <div class="booking-info-title">Booking Direct With:</div>
-              <img src="/api/placeholder/100/30" alt="P-Travel Assist Logo" width="100">
+              <img src="images/P-TA-full-logo-white.svg" alt="P-Travel Assist Logo" width="100">
             </div>
             <p>P-Travel Assist is the official travel partner for BEONIX 2025, ensuring a seamless booking experience and additional perks.</p>
           </div>

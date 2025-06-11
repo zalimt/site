@@ -2,6 +2,55 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize EmailJS
     emailjs.init("kIeoTy28ws4-_jR-1");
 
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+    menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close mobile menu when clicking a link
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target) && mobileMenu.classList.contains('active')) {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Package Selection - Only scroll to hotels
+    const packageButtons = document.querySelectorAll('.package-select-btn');
+    packageButtons.forEach(button => {
+        // Remove any existing click handlers
+        button.replaceWith(button.cloneNode(true));
+    });
+
+    // Re-add click handlers for package buttons
+    document.querySelectorAll('.package-select-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('hotels').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+            return false;
+        });
+    });
+
     // Modal Elements
     const modal = document.getElementById('bookingModal');
     const closeModal = document.querySelector('.close-modal');
@@ -39,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
     allBookNowButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
-            openModal();
+            const hotel = button.getAttribute('data-hotel');
+            openModal(hotel);
         });
     });
 
@@ -163,68 +213,166 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form submission handler
-    bookingForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        console.log('Form submission started');
-        
-        if (!validateForm()) {
-            showErrorMessage('Please correct the errors in the form');
-            return;
+    // Modal Functions
+    function openModal(hotel = '') {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        if (hotel) {
+            hotelSelect.value = hotel;
         }
-        
-        // Show loading state
-        const submitButton = bookingForm.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.innerHTML;
-        submitButton.innerHTML = '<div class="loading-spinner"></div> Sending...';
-        submitButton.disabled = true;
+    }
 
-        try {
-            // Get form data
-            const formData = new FormData(bookingForm);
-            const data = Object.fromEntries(formData.entries());
+    function closeModalFunc() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 
-            // Prepare email template parameters
-            const templateParams = {
-                to_email: 'zalim.tsorion@gmail.com',
-                from_name: data.name,
-                from_email: data.email,
-                country: data.country,
-                hotel: data.hotel,
-                travelers: data.travelers,
-                notes: data.notes || 'No additional notes provided',
-                reply_to: data.email,
-                submission_date: new Date().toLocaleString()
-            };
+    // Close modal when clicking the close button
+    closeModal.addEventListener('click', closeModalFunc);
 
-            console.log('Sending email with params:', templateParams);
-
-            // Send email using EmailJS
-            const response = await emailjs.send(
-                'beonix_to_infomm',
-                'template_avdejhd',
-                templateParams
-            );
-
-            console.log('Email sent successfully:', response);
-            
-            // Show success message
-            showSuccessMessage();
-            
-            // Reset form
-            bookingForm.reset();
-            
-            // Close modal after a delay
-            setTimeout(closeModalFunc, 2000);
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            showErrorMessage('Failed to send your request. Please try again or contact us directly via WhatsApp.');
-        } finally {
-            // Reset button state
-            submitButton.innerHTML = originalButtonText;
-            submitButton.disabled = false;
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModalFunc();
         }
     });
+
+    // Book Now buttons open modal
+    bookNowButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hotel = button.getAttribute('data-hotel');
+            openModal(hotel);
+        });
+    });
+
+    // Customize Trip button opens modal
+    if (customizeTripBtn) {
+        customizeTripBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    }
+
+    // Smooth Scroll for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add hover effect to hotel cards
+    const hotelCards = document.querySelectorAll('.hotel-card');
+    hotelCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+            card.style.boxShadow = '0 0 20px rgba(255, 62, 62, 0.3)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = 'none';
+        });
+    });
+
+    // Package Selection
+    const packageCards = document.querySelectorAll('.package-card');
+    const selectedPackageName = document.getElementById('selectedPackageName');
+    const selectedPackageDesc = document.getElementById('selectedPackageDesc');
+    const selectedPackagePrice = document.getElementById('selectedPackagePrice');
+
+    // Set default package
+    document.getElementById('premiumPackage').classList.add('selected');
+    document.querySelector('[data-package="premium"]').classList.remove('btn-secondary');
+    document.querySelector('[data-package="premium"]').classList.add('btn-primary');
+
+    packageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Reset all package cards and buttons
+            packageCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            
+            // Update booking information
+            const packageType = card.getAttribute('data-package');
+            if (packageType === 'standard') {
+                selectedPackageName.textContent = 'GENERAL ADMISSION';
+                selectedPackageDesc.textContent = 'Full Pass (19-21 Sep)';
+                selectedPackagePrice.textContent = '€190';
+            } else if (packageType === 'premium') {
+                selectedPackageName.textContent = 'VIP STANDING';
+                selectedPackageDesc.textContent = 'All-Days Pass (19-21 Sep)';
+                selectedPackagePrice.textContent = '€480';
+            } else if (packageType === 'luxury') {
+                selectedPackageName.textContent = 'VIP BACKSTAGE';
+                selectedPackageDesc.textContent = 'All-Days Pass (19-21 Sep)';
+                selectedPackagePrice.textContent = '€750';
+            }
+            
+            // Scroll to booking section
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Form submission handler
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitButton = bookingForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<div class="loading-spinner"></div> Sending...';
+            submitButton.disabled = true;
+
+            try {
+                // Get form data
+                const formData = new FormData(bookingForm);
+                const data = Object.fromEntries(formData.entries());
+
+                // Prepare email template parameters
+                const templateParams = {
+                    to_email: 'zalim.tsorion@gmail.com',
+                    from_name: data.name,
+                    from_email: data.email,
+                    country: data.country,
+                    hotel: data.hotel,
+                    travelers: data.travelers,
+                    notes: data.notes,
+                    reply_to: data.email
+                };
+
+                // Send email using EmailJS
+                await emailjs.send(
+                    'beonix_to_infomm',
+                    'template_avdejhd',
+                    templateParams
+                );
+
+                // Show success message
+                showSuccessMessage();
+                
+                // Reset form
+                bookingForm.reset();
+                
+                // Close modal after a delay
+                setTimeout(closeModalFunc, 2000);
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                showErrorMessage();
+            } finally {
+                // Reset button state
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            }
+        });
+    }
 
     // Success Message
     function showSuccessMessage() {
@@ -262,126 +410,4 @@ document.addEventListener('DOMContentLoaded', function() {
             errorDiv.remove();
         }, 5000);
     }
-
-    // Open Modal Function
-    function openModal(hotel = '') {
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-        
-        if (hotel) {
-            hotelSelect.value = hotel;
-        }
-    }
-
-    // Close Modal Function
-    function closeModalFunc() {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-
-    // Event Listeners
-    customizeTripBtn.addEventListener('click', () => {
-        openModal();
-    });
-
-    closeModal.addEventListener('click', closeModalFunc);
-
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModalFunc();
-        }
-    });
-
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
-            menuToggle.classList.remove('active');
-            mobileMenu.classList.remove('active');
-        });
-    });
-
-    // Smooth Scroll for Navigation Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Add hover effect to hotel cards
-    const hotelCards = document.querySelectorAll('.hotel-card');
-    hotelCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-5px)';
-            card.style.boxShadow = '0 0 20px rgba(255, 62, 62, 0.3)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0)';
-            card.style.boxShadow = 'none';
-        });
-    });
-
-    // Package Selection
-    const packageButtons = document.querySelectorAll('.package-select-btn');
-    const packageCards = document.querySelectorAll('.package-card');
-    const selectedPackageName = document.getElementById('selectedPackageName');
-    const selectedPackageDesc = document.getElementById('selectedPackageDesc');
-    const selectedPackagePrice = document.getElementById('selectedPackagePrice');
-
-    // Set default package
-    document.getElementById('premiumPackage').classList.add('selected');
-    document.querySelector('[data-package="premium"]').classList.remove('btn-secondary');
-    document.querySelector('[data-package="premium"]').classList.add('btn-primary');
-
-    packageButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const packageType = button.getAttribute('data-package');
-        
-        // Reset all package cards and buttons
-        packageCards.forEach(card => card.classList.remove('selected'));
-        packageButtons.forEach(btn => {
-          btn.classList.remove('btn-primary');
-          btn.classList.add('btn-secondary');
-        });
-        
-        // Set the selected package
-        document.getElementById(`${packageType}Package`).classList.add('selected');
-        button.classList.remove('btn-secondary');
-        button.classList.add('btn-primary');
-        
-        // Update booking information
-        if (packageType === 'standard') {
-          selectedPackageName.textContent = 'GENERAL ADMISSION';
-          selectedPackageDesc.textContent = 'Full Pass (19-21 Sep)';
-          selectedPackagePrice.textContent = '€190';
-        } else if (packageType === 'premium') {
-          selectedPackageName.textContent = 'VIP STANDING';
-          selectedPackageDesc.textContent = 'All-Days Pass (19-21 Sep)';
-          selectedPackagePrice.textContent = '€480';
-        } else if (packageType === 'luxury') {
-          selectedPackageName.textContent = 'VIP BACKSTAGE';
-          selectedPackageDesc.textContent = 'All-Days Pass (19-21 Sep)';
-          selectedPackagePrice.textContent = '€750';
-        }
-        
-        // Scroll to booking section
-        document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-      });
-    });
 });
