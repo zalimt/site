@@ -10,6 +10,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const bookingForm = document.getElementById('bookingForm');
     const hotelSelect = document.getElementById('hotel');
 
+    // Header BOOK NOW button - scroll to hotels section
+    const headerBookNowBtn = document.querySelector('.nav-desktop .btn-primary');
+    if (headerBookNowBtn) {
+        headerBookNowBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hotelsSection = document.getElementById('hotels');
+            if (hotelsSection) {
+                hotelsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    // Mobile menu BOOK NOW button - also scroll to hotels
+    const mobileBookNowBtn = document.querySelector('.mobile-menu a[href="#booking"]');
+    if (mobileBookNowBtn) {
+        mobileBookNowBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hotelsSection = document.getElementById('hotels');
+            if (hotelsSection) {
+                hotelsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    // All other BOOK NOW buttons - open modal
+    const allBookNowButtons = document.querySelectorAll('.btn-primary:not(.nav-desktop .btn-primary), .package-select-btn, .booking-btn');
+    allBookNowButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    });
+
     // Form validation rules
     const validationRules = {
         name: {
@@ -247,13 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event Listeners
-    bookNowButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const hotel = button.getAttribute('data-hotel');
-            openModal(hotel);
-        });
-    });
-
     customizeTripBtn.addEventListener('click', () => {
         openModal();
     });
