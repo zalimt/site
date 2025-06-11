@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS
+    emailjs.init("kIeoTy28ws4-_jR-1");
+
     // Modal Elements
     const modal = document.getElementById('bookingModal');
     const closeModal = document.querySelector('.close-modal');
@@ -7,55 +10,172 @@ document.addEventListener('DOMContentLoaded', function() {
     const bookingForm = document.getElementById('bookingForm');
     const hotelSelect = document.getElementById('hotel');
 
-    // Open Modal Function
-    function openModal(hotelName = '') {
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+    // Form validation rules
+    const validationRules = {
+        name: {
+            required: true,
+            minLength: 2,
+            maxLength: 50
+        },
+        email: {
+            required: true,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        },
+        country: {
+            required: true,
+            minLength: 2
+        },
+        hotel: {
+            required: true
+        },
+        travelers: {
+            required: true,
+            min: 1,
+            max: 10
+        }
+    };
+
+    // Validate form field
+    function validateField(field) {
+        const value = field.value.trim();
+        const rules = validationRules[field.name];
         
-        // If hotel name is provided, set it in the select
-        if (hotelName) {
-            hotelSelect.value = hotelName;
+        // If no validation rules exist for this field, consider it valid
+        if (!rules) {
+            return '';
         }
+
+        let error = '';
+
+        if (rules.required && !value) {
+            error = 'This field is required';
+        } else if (rules.minLength && value.length < rules.minLength) {
+            error = `Minimum length is ${rules.minLength} characters`;
+        } else if (rules.maxLength && value.length > rules.maxLength) {
+            error = `Maximum length is ${rules.maxLength} characters`;
+        } else if (rules.pattern && !rules.pattern.test(value)) {
+            error = 'Please enter a valid value';
+        } else if (rules.min && parseInt(value) < rules.min) {
+            error = `Minimum value is ${rules.min}`;
+        } else if (rules.max && parseInt(value) > rules.max) {
+            error = `Maximum value is ${rules.max}`;
+        }
+
+        return error;
     }
 
-    // Close Modal Function
-    function closeModalFunc() {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
+    // Show field error
+    function showFieldError(field, error) {
+        const formGroup = field.closest('.form-group');
+        const errorElement = formGroup.querySelector('.error-message') || document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.textContent = error;
+        
+        if (!formGroup.querySelector('.error-message')) {
+            formGroup.appendChild(errorElement);
+        }
+        
+        field.classList.add('error');
     }
 
-    // Event Listeners for Modal
-    bookNowButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const hotelName = button.getAttribute('data-hotel');
-            openModal(hotelName);
+    // Clear field error
+    function clearFieldError(field) {
+        const formGroup = field.closest('.form-group');
+        const errorElement = formGroup.querySelector('.error-message');
+        
+        if (errorElement) {
+            errorElement.remove();
+        }
+        
+        field.classList.remove('error');
+    }
+
+    // Validate entire form
+    function validateForm() {
+        let isValid = true;
+        const fields = bookingForm.querySelectorAll('input, select, textarea');
+        
+        fields.forEach(field => {
+            // Only validate fields that have validation rules
+            if (validationRules[field.name]) {
+                const error = validateField(field);
+                if (error) {
+                    showFieldError(field, error);
+                    isValid = false;
+                } else {
+                    clearFieldError(field);
+                }
+            }
         });
-    });
+        
+        return isValid;
+    }
 
-    customizeTripBtn.addEventListener('click', () => {
-        openModal();
-    });
+    // Real-time validation
+    bookingForm.querySelectorAll('input, select, textarea').forEach(field => {
+        // Only add validation listeners to fields that have validation rules
+        if (validationRules[field.name]) {
+            field.addEventListener('blur', () => {
+                const error = validateField(field);
+                if (error) {
+                    showFieldError(field, error);
+                } else {
+                    clearFieldError(field);
+                }
+            });
 
-    closeModal.addEventListener('click', closeModalFunc);
-
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModalFunc();
+            field.addEventListener('input', () => {
+                clearFieldError(field);
+            });
         }
     });
 
-    // Form Submission
-    bookingForm.addEventListener('submit', async (e) => {
+    // Form submission handler
+    bookingForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(bookingForm);
-        const data = Object.fromEntries(formData.entries());
+        console.log('Form submission started');
+        
+        if (!validateForm()) {
+            showErrorMessage('Please correct the errors in the form');
+            return;
+        }
+        
+        // Show loading state
+        const submitButton = bookingForm.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.innerHTML;
+        submitButton.innerHTML = '<div class="loading-spinner"></div> Sending...';
+        submitButton.disabled = true;
 
         try {
-            // Here you would typically send the data to your server
-            // For now, we'll just show a success message
+            // Get form data
+            const formData = new FormData(bookingForm);
+            const data = Object.fromEntries(formData.entries());
+
+            // Prepare email template parameters
+            const templateParams = {
+                to_email: 'zalim.tsorion@gmail.com',
+                from_name: data.name,
+                from_email: data.email,
+                country: data.country,
+                hotel: data.hotel,
+                travelers: data.travelers,
+                notes: data.notes || 'No additional notes provided',
+                reply_to: data.email,
+                submission_date: new Date().toLocaleString()
+            };
+
+            console.log('Sending email with params:', templateParams);
+
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                'beonix_to_infomm',
+                'template_avdejhd',
+                templateParams
+            );
+
+            console.log('Email sent successfully:', response);
+            
+            // Show success message
             showSuccessMessage();
             
             // Reset form
@@ -65,7 +185,11 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(closeModalFunc, 2000);
         } catch (error) {
             console.error('Error submitting form:', error);
-            showErrorMessage();
+            showErrorMessage('Failed to send your request. Please try again or contact us directly via WhatsApp.');
+        } finally {
+            // Reset button state
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
         }
     });
 
@@ -74,36 +198,90 @@ document.addEventListener('DOMContentLoaded', function() {
         const successDiv = document.createElement('div');
         successDiv.className = 'success-message';
         successDiv.innerHTML = `
-            <h3>Thank you!</h3>
-            <p>We'll contact you shortly via WhatsApp or Email.</p>
+            <h3>Thank you for your booking request!</h3>
+            <p>We've received your request and will contact you shortly via WhatsApp or Email to confirm your booking.</p>
+            <p>In the meantime, feel free to contact us directly if you have any questions.</p>
         `;
         
         const formContainer = bookingForm.parentElement;
         formContainer.appendChild(successDiv);
         
-        // Remove success message after 3 seconds
+        // Remove success message after 5 seconds
         setTimeout(() => {
             successDiv.remove();
-        }, 3000);
+        }, 5000);
     }
 
     // Error Message
-    function showErrorMessage() {
+    function showErrorMessage(message = 'Something went wrong. Please try again or contact us directly via WhatsApp.') {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message';
         errorDiv.innerHTML = `
             <h3>Oops!</h3>
-            <p>Something went wrong. Please try again or contact us directly via WhatsApp.</p>
+            <p>${message}</p>
         `;
         
         const formContainer = bookingForm.parentElement;
         formContainer.appendChild(errorDiv);
         
-        // Remove error message after 3 seconds
+        // Remove error message after 5 seconds
         setTimeout(() => {
             errorDiv.remove();
-        }, 3000);
+        }, 5000);
     }
+
+    // Open Modal Function
+    function openModal(hotel = '') {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        if (hotel) {
+            hotelSelect.value = hotel;
+        }
+    }
+
+    // Close Modal Function
+    function closeModalFunc() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // Event Listeners
+    bookNowButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const hotel = button.getAttribute('data-hotel');
+            openModal(hotel);
+        });
+    });
+
+    customizeTripBtn.addEventListener('click', () => {
+        openModal();
+    });
+
+    closeModal.addEventListener('click', closeModalFunc);
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModalFunc();
+        }
+    });
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        });
+    });
 
     // Smooth Scroll for Navigation Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -116,23 +294,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     block: 'start'
                 });
             }
-        });
-    });
-
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            menuToggle.classList.remove('active');
-            mobileMenu.classList.remove('active');
         });
     });
 
