@@ -50,6 +50,8 @@
   </script>
   
   <link rel="stylesheet" href="css/style.css">
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
   <!-- Header -->
@@ -57,17 +59,16 @@
     <div class="container">
       <div class="header-inner">
         <a href="#" class="logo">
-          <img src="images/logo.png" alt="BEONIX Festival">
-          <span>BEONIX</span>
+          <img src="images/P-TA-full-logo-white.svg" alt="Personal Travel Assist">
         </a>
         
         <nav class="nav-desktop">
           <ul>
-            <li><a href="#overview">OVERVIEW</a></li>
             <li><a href="#lineup">LINEUP</a></li>
-            <li><a href="#packages">PACKAGES</a></li>
+            <li><a href="#included">WHAT'S INCLUDED</a></li>
             <li><a href="#hotels">HOTELS</a></li>
-            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#extended-stay">EXTENDED STAY</a></li>
+            <li><a href="#how-it-works">HOW IT WORKS</a></li>
           </ul>
         </nav>
 
@@ -82,11 +83,11 @@
 
   <nav class="mobile-menu">
     <ul>
-      <li><a href="#overview">OVERVIEW</a></li>
       <li><a href="#lineup">LINEUP</a></li>
-      <li><a href="#packages">PACKAGES</a></li>
+      <li><a href="#included">WHAT'S INCLUDED</a></li>
       <li><a href="#hotels">HOTELS</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#extended-stay">EXTENDED STAY</a></li>
+      <li><a href="#how-it-works">HOW IT WORKS</a></li>
     </ul>
   </nav>
 
@@ -152,24 +153,24 @@
       <p class="section-subtitle">Choose from our carefully crafted festival packages, designed to provide the ultimate festival experience with premium accommodations and exclusive perks.</p>
       
       <div class="features">
-          <div class="feature-card">
-            <div class="feature-icon"></div>
-            <h3 class="feature-title">4 IMMERSIVE STAGES</h3>
-            <p class="feature-description">Experience diverse electronic soundscapes across Main Stage, Hangar Stage, Organic Stage, and Garden Stage.</p>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon"></div>
-            <h3 class="feature-title">50+ WORLD-CLASS DJS</h3>
-            <p class="feature-description">Dance to beats from over 50 international artists including Armin Van Buuren, Boris Brejcha, and many more electronic music legends.</p>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon"></div>
-            <h3 class="feature-title">HISTORIC ETKO VENUE</h3>
-            <p class="feature-description">Set in ETKO historic location in Limassol, combining Cyprus's rich heritage with cutting-edge sound and visuals.</p>
-          </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-music"></i></div>
+          <h3 class="feature-title">4 IMMERSIVE STAGES</h3>
+          <p class="feature-description">Experience diverse electronic soundscapes across Main Stage, Hangar Stage, Organic Stage, and Garden Stage.</p>
         </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-headphones"></i></div>
+          <h3 class="feature-title">50+ WORLD-CLASS DJS</h3>
+          <p class="feature-description">Dance to beats from over 50 international artists including Armin Van Buuren, Boris Brejcha, and many more electronic music legends.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-landmark"></i></div>
+          <h3 class="feature-title">HISTORIC ETKO VENUE</h3>
+          <p class="feature-description">Set in ETKO historic location in Limassol, combining Cyprus's rich heritage with cutting-edge sound and visuals.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -322,7 +323,7 @@
         </div>
 
         <div class="hotel-card">
-          <img src="images/hotels/st-paul.jpg" alt="St. Paul Hotel" loading="lazy">
+          <img src="images/hotels/st-pail.webp" alt="St. Paul Hotel" loading="lazy">
           <div class="hotel-content">
             <h3>St. Paul (Old Town)</h3>
             <p class="hotel-package">3 nights + Full Pass + Transfers</p>
@@ -333,7 +334,7 @@
         </div>
 
         <div class="hotel-card">
-          <img src="images/hotels/grand-resort.jpg" alt="Grand Resort" loading="lazy">
+          <img src="images/hotels/grandresort.webp" alt="Grand Resort" loading="lazy">
           <div class="hotel-content">
             <h3>Grand Resort</h3>
             <p class="hotel-package">3 nights + Full Pass + Transfers</p>
@@ -344,7 +345,7 @@
         </div>
 
         <div class="hotel-card">
-          <img src="images/hotels/nyx.jpg" alt="NYX Hotel" loading="lazy">
+          <img src="images/hotels/nyxlimassol.webp" alt="NYX Hotel" loading="lazy">
           <div class="hotel-content">
             <h3>NYX Hotel</h3>
             <p class="hotel-package">3 nights + Full Pass + Transfers</p>
@@ -355,7 +356,7 @@
         </div>
 
         <div class="hotel-card">
-          <img src="images/hotels/crowne-plaza.jpg" alt="Crowne Plaza Limassol" loading="lazy">
+          <img src="images/hotels/crowneplaza.webp" alt="Crowne Plaza Limassol" loading="lazy">
           <div class="hotel-content">
             <h3>Crowne Plaza Limassol</h3>
             <p class="hotel-package">3 nights + Full Pass + Transfers</p>
@@ -423,7 +424,14 @@
         </div>
         <div class="form-group">
           <label for="hotel">Selected Hotel</label>
-          <input type="text" id="hotel" name="hotel" readonly>
+          <select id="hotel" name="hotel" required>
+            <option value="">Choose a hotel...</option>
+            <option value="Four Seasons">Four Seasons - From €899 per person</option>
+            <option value="St. Paul">St. Paul (Old Town) - From €699 per person</option>
+            <option value="Grand Resort">Grand Resort - From €799 per person</option>
+            <option value="NYX">NYX Hotel - From €599 per person</option>
+            <option value="Crowne Plaza">Crowne Plaza Limassol - From €649 per person</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="travelers">Number of Travelers</label>
@@ -441,6 +449,24 @@
     </div>
   </div>
 
+  <!-- Thank You Modal -->
+  <div class="modal" id="thankYouModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeThankYou">&times;</span>
+      <div class="thank-you-content">
+        <div class="thank-you-icon">✓</div>
+        <h2>Thank You!</h2>
+        <h3>Your booking request has been sent successfully!</h3>
+        <p>We've received your request and will contact you shortly via WhatsApp or Email to confirm your booking details.</p>
+        <p>In the meantime, feel free to contact us directly if you have any questions.</p>
+        <div class="thank-you-actions">
+          <button class="btn btn-primary" id="closeThankYouBtn">Continue</button>
+          <a href="https://wa.me/+3579261722428" class="btn btn-secondary">Contact WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- WhatsApp Float Button -->
   <a href="https://wa.me/+3579261722428" class="whatsapp-float" aria-label="Contact on WhatsApp">
     <img src="images/whatsapp-icon.svg" alt="WhatsApp">
@@ -455,7 +481,7 @@
         
         <div class="venue-details">
           <div class="venue-detail">
-            <div class="venue-detail-icon"></div>
+            <div class="venue-detail-icon"><i class="fa-solid fa-map-marker-alt"></i></div>
             <div class="venue-detail-content">
               <div class="venue-detail-label">Location</div>
               <div class="venue-detail-value">ETKO, 31 Tsiflikoudia, Limassol, Cyprus</div>
@@ -463,7 +489,7 @@
           </div>
           
           <div class="venue-detail">
-            <div class="venue-detail-icon"></div>
+            <div class="venue-detail-icon"><i class="fa-solid fa-calendar-days"></i></div>
             <div class="venue-detail-content">
               <div class="venue-detail-label">Dates</div>
               <div class="venue-detail-value">September 19-21, 2025</div>
@@ -471,7 +497,7 @@
           </div>
           
           <div class="venue-detail">
-            <div class="venue-detail-icon"></div>
+            <div class="venue-detail-icon"><i class="fa-solid fa-clock"></i></div>
             <div class="venue-detail-content">
               <div class="venue-detail-label">Festival Hours</div>
               <div class="venue-detail-value">16:00 - 06:00 each day</div>
@@ -479,7 +505,7 @@
           </div>
         </div>
         
-        <a href="#" class="venue-map-link">View on Google Maps <i>→</i></a>
+        <a href="https://maps.app.goo.gl/titG6kEpGYWyNGu66" class="venue-map-link">View on Google Maps <i>→</i></a>
       </div>
       
       <div class="venue-image">

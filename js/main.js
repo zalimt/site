@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed'); // Debug log to check if JavaScript is loading
     // Initialize EmailJS
     emailjs.init("kIeoTy28ws4-_jR-1");
 
@@ -32,13 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Package Selection - Only scroll to hotels
-    const packageButtons = document.querySelectorAll('.package-select-btn');
-    packageButtons.forEach(button => {
-        // Remove any existing click handlers
-        button.replaceWith(button.cloneNode(true));
-    });
-
-    // Re-add click handlers for package buttons
     document.querySelectorAll('.package-select-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -53,11 +47,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Modal Elements
     const modal = document.getElementById('bookingModal');
+    const thankYouModal = document.getElementById('thankYouModal');
     const closeModal = document.querySelector('.close-modal');
+    const closeThankYou = document.getElementById('closeThankYou');
+    const closeThankYouBtn = document.getElementById('closeThankYouBtn');
     const bookNowButtons = document.querySelectorAll('.book-now-btn');
     const customizeTripBtn = document.querySelector('.customize-trip-btn');
     const bookingForm = document.getElementById('bookingForm');
     const hotelSelect = document.getElementById('hotel');
+
+    console.log('Modal elements found:', {
+        modal: !!modal,
+        thankYouModal: !!thankYouModal,
+        closeModal: !!closeModal,
+        bookingForm: !!bookingForm,
+        hotelSelect: !!hotelSelect
+    });
+
+    // Test: Add a simple click handler to the submit button
+    setTimeout(() => {
+        const submitBtn = document.querySelector('#bookingForm button[type="submit"]');
+        console.log('Submit button found:', !!submitBtn);
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function() {
+                console.log('Submit button clicked!');
+            });
+        }
+    }, 1000); // Wait 1 second to ensure DOM is ready
 
     // Header BOOK NOW button - scroll to hotels section
     const headerBookNowBtn = document.querySelector('.nav-desktop .btn-primary');
@@ -213,44 +229,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Modal Functions
-    function openModal(hotel = '') {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        if (hotel) {
-            hotelSelect.value = hotel;
-        }
-    }
-
-    function closeModalFunc() {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-
     // Close modal when clicking the close button
-    closeModal.addEventListener('click', closeModalFunc);
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
 
     // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
+    modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-            closeModalFunc();
+            modal.style.display = 'none';
         }
     });
 
-    // Book Now buttons open modal
+    // Book Now buttons
     bookNowButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const hotel = button.getAttribute('data-hotel');
-            openModal(hotel);
+        button.addEventListener('click', function() {
+            const hotelName = this.getAttribute('data-hotel');
+            modal.style.display = 'flex';
+            
+            // Set the selected hotel in the dropdown
+            if (hotelSelect && hotelName) {
+                hotelSelect.value = hotelName;
+            }
         });
     });
 
-    // Customize Trip button opens modal
+    // Customize Trip button
     if (customizeTripBtn) {
-        customizeTripBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal();
+        customizeTripBtn.addEventListener('click', function() {
+            modal.style.display = 'flex';
+            // Don't pre-select any hotel for customize trip
+            if (hotelSelect) {
+                hotelSelect.value = '';
+            }
         });
     }
 
@@ -289,9 +300,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedPackagePrice = document.getElementById('selectedPackagePrice');
 
     // Set default package
-    document.getElementById('premiumPackage').classList.add('selected');
-    document.querySelector('[data-package="premium"]').classList.remove('btn-secondary');
-    document.querySelector('[data-package="premium"]').classList.add('btn-primary');
+    const premiumPackage = document.getElementById('premiumPackage');
+    if (premiumPackage) {
+        premiumPackage.classList.add('selected');
+    }
+    const premiumPackageBtn = document.querySelector('[data-package="premium"]');
+    if (premiumPackageBtn) {
+        premiumPackageBtn.classList.remove('btn-secondary');
+        premiumPackageBtn.classList.add('btn-primary');
+    }
 
     packageCards.forEach(card => {
         card.addEventListener('click', () => {
@@ -320,94 +337,86 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission handler
+    // Form submission handler - using click instead of submit
     if (bookingForm) {
-        bookingForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Show loading state
-            const submitButton = bookingForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            submitButton.innerHTML = '<div class="loading-spinner"></div> Sending...';
-            submitButton.disabled = true;
-
-            try {
-                // Get form data
-                const formData = new FormData(bookingForm);
-                const data = Object.fromEntries(formData.entries());
-
-                // Prepare email template parameters
-                const templateParams = {
-                    to_email: 'zalim.tsorion@gmail.com',
-                    from_name: data.name,
-                    from_email: data.email,
-                    country: data.country,
-                    hotel: data.hotel,
-                    travelers: data.travelers,
-                    notes: data.notes,
-                    reply_to: data.email
-                };
-
-                // Send email using EmailJS
-                await emailjs.send(
-                    'beonix_to_infomm',
-                    'template_avdejhd',
-                    templateParams
-                );
-
-                // Show success message
-                showSuccessMessage();
+        const submitButton = bookingForm.querySelector('button[type="submit"]');
+        if (submitButton) {
+            submitButton.addEventListener('click', async (e) => {
+                e.preventDefault();
                 
-                // Reset form
-                bookingForm.reset();
+                // Validate required fields
+                const name = bookingForm.querySelector('#name').value.trim();
+                const email = bookingForm.querySelector('#email').value.trim();
+                const country = bookingForm.querySelector('#country').value.trim();
+                const hotel = bookingForm.querySelector('#hotel').value.trim();
+                const travelers = bookingForm.querySelector('#travelers').value.trim();
                 
-                // Close modal after a delay
-                setTimeout(closeModalFunc, 2000);
-            } catch (error) {
-                console.error('Error submitting form:', error);
-                showErrorMessage();
-            } finally {
-                // Reset button state
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-            }
-        });
+                if (!name || !email || !country || !hotel || !travelers) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Show loading state
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.innerHTML = '<div class="loading-spinner"></div> Sending...';
+                submitButton.disabled = true;
+
+                try {
+                    // Get form data
+                    const formData = new FormData(bookingForm);
+                    const data = Object.fromEntries(formData.entries());
+
+                    // Prepare email template parameters
+                    const templateParams = {
+                        to_email: 'zalim.tsorion@gmail.com',
+                        from_name: data.name,
+                        from_email: data.email,
+                        country: data.country,
+                        hotel: data.hotel || 'Not selected',
+                        travelers: data.travelers,
+                        notes: data.notes || 'No additional notes',
+                        subject: 'New BEONIX Festival 2025 Booking Request'
+                    };
+
+                    // Send email using EmailJS
+                    await emailjs.send(
+                        'beonix_to_infomm',
+                        'template_avdejhd',
+                        templateParams
+                    );
+
+                    // Show success message
+                    thankYouModal.style.display = 'flex';
+                    
+                    // Reset form and close modal
+                    bookingForm.reset();
+                    modal.style.display = 'none';
+                    
+                } catch (error) {
+                    console.error('Error sending email:', error);
+                    alert('Failed to send booking request. Please try again or contact us directly.');
+                } finally {
+                    // Reset button state
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                }
+            });
+        }
     }
 
-    // Success Message
-    function showSuccessMessage() {
-        const successDiv = document.createElement('div');
-        successDiv.className = 'success-message';
-        successDiv.innerHTML = `
-            <h3>Thank you for your booking request!</h3>
-            <p>We've received your request and will contact you shortly via WhatsApp or Email to confirm your booking.</p>
-            <p>In the meantime, feel free to contact us directly if you have any questions.</p>
-        `;
-        
-        const formContainer = bookingForm.parentElement;
-        formContainer.appendChild(successDiv);
-        
-        // Remove success message after 5 seconds
-        setTimeout(() => {
-            successDiv.remove();
-        }, 5000);
-    }
+    // Close thank you modal
+    closeThankYou.addEventListener('click', () => {
+        thankYouModal.style.display = 'none';
+    });
 
-    // Error Message
-    function showErrorMessage(message = 'Something went wrong. Please try again or contact us directly via WhatsApp.') {
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.innerHTML = `
-            <h3>Oops!</h3>
-            <p>${message}</p>
-        `;
-        
-        const formContainer = bookingForm.parentElement;
-        formContainer.appendChild(errorDiv);
-        
-        // Remove error message after 5 seconds
-        setTimeout(() => {
-            errorDiv.remove();
-        }, 5000);
-    }
+    closeThankYouBtn.addEventListener('click', () => {
+        thankYouModal.style.display = 'none';
+    });
+
+    // Close thank you modal when clicking outside
+    thankYouModal.addEventListener('click', (e) => {
+        if (e.target === thankYouModal) {
+            thankYouModal.style.display = 'none';
+        }
+    });
 });
