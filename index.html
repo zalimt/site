@@ -65,7 +65,7 @@
         <nav class="nav-desktop">
           <ul>
             <li><a href="#lineup">LINEUP</a></li>
-            <li><a href="#included">WHAT'S INCLUDED</a></li>
+            <li><a href="#packages">FESTIVAL PACKAGES</a></li>
             <li><a href="#hotels">HOTELS</a></li>
             <li><a href="#extended-stay">EXTENDED STAY</a></li>
             <li><a href="#how-it-works">HOW IT WORKS</a></li>
@@ -84,7 +84,7 @@
   <nav class="mobile-menu">
     <ul>
       <li><a href="#lineup">LINEUP</a></li>
-      <li><a href="#included">WHAT'S INCLUDED</a></li>
+      <li><a href="#packages">FESTIVAL PACKAGES</a></li>
       <li><a href="#hotels">HOTELS</a></li>
       <li><a href="#extended-stay">EXTENDED STAY</a></li>
       <li><a href="#how-it-works">HOW IT WORKS</a></li>
@@ -149,11 +149,33 @@
     </div>
   </div>
 
+    <!-- Lineup Section -->
+    <section class="lineup" id="lineup">
+      <div class="container lineup-content">
+        <h2 class="section-title">2025 LINEUP</h2>
+        <p class="section-subtitle">Join thousands of music lovers for an unforgettable weekend with the world's top electronic music artists.</p>
+        <div class="stages">
+          <div class="stage-card">
+            <img src="images/adriatique.webp" alt="Adriatique">
+          </div>
+          <div class="stage-card">
+            <img src="images/armin-van-buuren.webp" alt="Armin Van Buuren">
+          </div>
+          <div class="stage-card">
+            <img src="images/boris-brejcha.webp" alt="Boris Brejcha">
+          </div>
+          <div class="stage-card">
+            <img src="images/anfisa-letyago.webp" alt="Anfisa Letyago">
+          </div>
+        </div>
+      </div>
+    </section>
+
   <!-- Festival Overview -->
   <section class="overview" id="overview">
     <div class="container">
-      <h2 class="section-title">Festival Packages</h2>
-      <p class="section-subtitle">Choose from our carefully crafted festival packages, designed to provide the ultimate festival experience with premium accommodations and exclusive perks.</p>
+      <!-- <h2 class="section-title">Festival Packages</h2> -->
+      <!-- <p class="section-subtitle">Choose from our carefully crafted festival packages, designed to provide the ultimate festival experience with premium accommodations and exclusive perks.</p> -->
       
       <div class="features">
         <div class="feature-card">
@@ -177,93 +199,70 @@
     </div>
   </section>
 
-  <!-- Lineup Section -->
-  <section class="lineup" id="lineup">
-    <div class="container lineup-content">
-      <h2 class="section-title">2025 LINEUP</h2>
-      <p class="section-subtitle">Join thousands of music lovers for an unforgettable weekend with the world's top electronic music artists.</p>
-      <div class="stages">
-        <div class="stage-card">
-          <img src="images/adriatique.webp" alt="Adriatique">
-        </div>
-        <div class="stage-card">
-          <img src="images/armin-van-buuren.webp" alt="Armin Van Buuren">
-        </div>
-        <div class="stage-card">
-          <img src="images/boris-brejcha.webp" alt="Boris Brejcha">
-        </div>
-        <div class="stage-card">
-          <img src="images/anfisa-letyago.webp" alt="Anfisa Letyago">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Packages Section -->
+  <!-- 3 Days Festival Packages Section -->
   <section class="packages" id="packages">
     <div class="container">
-      <h2 class="section-title">FESTIVAL PACKAGES</h2>
-      <p class="section-subtitle">Discover our exclusive festival packages, combining premium accommodations, VIP access, and unforgettable experiences for the ultimate festival adventure.</p>
+      <h2 class="section-title">3 DAYS FESTIVAL PACKAGES</h2>
+      <p class="section-subtitle">Choose your perfect BEONIX experience with our flexible package options. From basic tickets to complete hotel packages.</p>
       
       <div class="package-cards">
-        <div class="package-card" id="standardPackage">
+        <div class="package-card">
           <div class="package-header">
-            <h3 class="package-title">GENERAL ADMISSION</h3>
-            <div class="package-price">€190</div>
-            <div class="package-price-subtitle">Full Pass (19-21 Sep)</div>
+            <h3 class="package-title">TICKET + TRANSFER</h3>
+            <div class="package-price">From €250</div>
+            <div class="package-price-subtitle">Festival Pass + Transport</div>
           </div>
           
           <ul class="package-features">
-            <li><i>★</i> 3-Day Festival Access</li>
-            <li><i>★</i> Access to All General Areas</li>
-            <li><i>★</i> Access to All Music Stages</li>
-            <li><i>★</i> Food & Drink Vendors</li>
-            <li><i>★</i> Art Installations</li>
+            <li><i>★</i> 3-Day Festival Pass</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> Daily Venue Transfers</li>
+            <li><i>★</i> Choose Your Ticket Type</li>
+            <li><i>★</i> Official Partner Rates</li>
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-secondary package-select-btn" data-package="standard">SPECIAL OFFER</button>
+            <button class="btn btn-primary package-modal-btn" data-modal="ticketTransferModal">BOOK NOW</button>
           </div>
         </div>
         
         <div class="package-card">
           <div class="package-header">
-            <h3 class="package-title">VIP STANDING</h3>
-            <div class="package-price">€480</div>
-            <div class="package-price-subtitle">All-Days Pass (19-21 Sep)</div>
+            <h3 class="package-title">TICKET + HOTEL + TRANSFER</h3>
+            <div class="package-price">From €990</div>
+            <div class="package-price-subtitle">Complete Package</div>
           </div>
           
           <ul class="package-features">
-            <li><i>★</i> 3-Day Festival Access</li>
-            <li><i>★</i> VIP Elevated Main Stage Area</li>
-            <li><i>★</i> Excellent View of Performances</li>
-            <li><i>★</i> Separate Queues</li>
-            <li><i>★</i> Exclusive Restrooms</li>
-            <li><i>★</i> Priority Parking</li>
+            <li><i>★</i> 3-Day Festival Pass</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> Daily Venue Transfers</li>
+            <li><i>★</i> Local PTA Support</li>
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-secondary package-select-btn" data-package="premium">SPECIAL OFFER</button>
+            <button class="btn btn-primary package-modal-btn" data-modal="ticketHotelTransferModal">BOOK NOW</button>
           </div>
         </div>
         
-        <div class="package-card" id="luxuryPackage">
+        <div class="package-card">
           <div class="package-header">
-            <h3 class="package-title">VIP BACKSTAGE</h3>
-            <div class="package-price">€750</div>
-            <div class="package-price-subtitle">All-Days Pass (19-21 Sep)</div>
+            <h3 class="package-title">TICKET + HOTEL</h3>
+            <div class="package-price">From €930</div>
+            <div class="package-price-subtitle">Festival Pass + Accommodation</div>
           </div>
           
           <ul class="package-features">
-            <li><i>★</i> 3-Day Festival Access</li>
-            <li><i>★</i> Access to Special Area at Main Stage</li>
-            <li><i>★</i> Alongside the DJ Experience</li>
-            <li><i>★</i> All VIP Standing Benefits</li>
-            <li><i>★</i> Fast Track Entry</li>
+            <li><i>★</i> 3-Day Festival Pass</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> Choose Your Ticket Type</li>
+            <li><i>★</i> St. Paul Hotel (Old Town)</li>
+            <li><i>★</i> Official Partner Rates</li>
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-secondary package-select-btn" data-package="luxury">SPECIAL OFFER</button>
+            <button class="btn btn-primary package-modal-btn" data-modal="ticketHotelModal">BOOK NOW</button>
           </div>
         </div>
       </div>
@@ -271,7 +270,7 @@
   </section>
 
   <!-- What's Included Section -->
-  <section class="included" id="included">
+  <!-- <section class="included" id="included">
     <div class="container">
       <h2 class="section-title">WHAT'S INCLUDED</h2>
       <div class="included-content">
@@ -284,7 +283,7 @@
         <div class="included-price">From €399</div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- Hotel Grid Section -->
   <section class="hotels" id="hotels">
@@ -425,6 +424,234 @@
           <a href="https://wa.me/+3579261722428" class="whatsapp-link">Contact us on WhatsApp</a>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Ticket + Transfer Modal -->
+  <div class="modal" id="ticketTransferModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Ticket + Transfer Packages</h2>
+      <p class="modal-subtitle">Choose your ticket type with 3-day transport pass</p>
+      
+      <div class="package-cards">
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">GENERAL ADMISSION</h3>
+            <div class="package-price">€250</div>
+            <div class="package-price-subtitle">Full Pass + Transport (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> Access to All General Areas</li>
+            <li><i>★</i> Access to All Music Stages</li>
+            <li><i>★</i> Food & Drink Vendors</li>
+            <li><i>★</i> Art Installations</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+        
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">VIP STANDING</h3>
+            <div class="package-price">€540</div>
+            <div class="package-price-subtitle">All-Days Pass + Transport (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> VIP Elevated Main Stage Area</li>
+            <li><i>★</i> Excellent View of Performances</li>
+            <li><i>★</i> Separate Queues</li>
+            <li><i>★</i> Exclusive Restrooms</li>
+            <li><i>★</i> Priority Parking</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+        
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">VIP BACKSTAGE</h3>
+            <div class="package-price">€810</div>
+            <div class="package-price-subtitle">All-Days Pass + Transport (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> Access to Special Area at Main Stage</li>
+            <li><i>★</i> Alongside the DJ Experience</li>
+            <li><i>★</i> All VIP Standing Benefits</li>
+            <li><i>★</i> Fast Track Entry</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket + Hotel + Transfer Modal -->
+  <div class="modal" id="ticketHotelTransferModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Ticket + Hotel + Transfer Packages</h2>
+      <p class="modal-subtitle">Complete package with St. Paul Hotel (Old Town)</p>
+      
+      <div class="package-cards">
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">GENERAL ADMISSION</h3>
+            <div class="package-price">€990</div>
+            <div class="package-price-subtitle">Full Pass + Hotel + Transport (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> Access to All General Areas</li>
+            <li><i>★</i> Access to All Music Stages</li>
+            <li><i>★</i> Food & Drink Vendors</li>
+            <li><i>★</i> Art Installations</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+        
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">VIP STANDING</h3>
+            <div class="package-price">€1280</div>
+            <div class="package-price-subtitle">All-Days Pass + Hotel + Transport (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> VIP Elevated Main Stage Area</li>
+            <li><i>★</i> Excellent View of Performances</li>
+            <li><i>★</i> Separate Queues</li>
+            <li><i>★</i> Exclusive Restrooms</li>
+            <li><i>★</i> Priority Parking</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+        
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">VIP BACKSTAGE</h3>
+            <div class="package-price">€1550</div>
+            <div class="package-price-subtitle">All-Days Pass + Hotel + Transport (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> 3-Day Transport Pass</li>
+            <li><i>★</i> Access to Special Area at Main Stage</li>
+            <li><i>★</i> Alongside the DJ Experience</li>
+            <li><i>★</i> All VIP Standing Benefits</li>
+            <li><i>★</i> Fast Track Entry</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket + Hotel Modal -->
+  <div class="modal" id="ticketHotelModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Ticket + Hotel Packages</h2>
+      <p class="modal-subtitle">Festival pass with St. Paul Hotel (Old Town) accommodation</p>
+      
+      <div class="package-cards">
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">GENERAL ADMISSION</h3>
+            <div class="package-price">€930</div>
+            <div class="package-price-subtitle">Full Pass + Hotel (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> Access to All General Areas</li>
+            <li><i>★</i> Access to All Music Stages</li>
+            <li><i>★</i> Food & Drink Vendors</li>
+            <li><i>★</i> Art Installations</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+        
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">VIP STANDING</h3>
+            <div class="package-price">€1220</div>
+            <div class="package-price-subtitle">All-Days Pass + Hotel (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> VIP Elevated Main Stage Area</li>
+            <li><i>★</i> Excellent View of Performances</li>
+            <li><i>★</i> Separate Queues</li>
+            <li><i>★</i> Exclusive Restrooms</li>
+            <li><i>★</i> Priority Parking</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+        
+        <div class="package-card">
+          <div class="package-header">
+            <h3 class="package-title">VIP BACKSTAGE</h3>
+            <div class="package-price">€1490</div>
+            <div class="package-price-subtitle">All-Days Pass + Hotel (19-21 Sep)</div>
+          </div>
+          
+          <ul class="package-features">
+            <li><i>★</i> 3-Day Festival Access</li>
+            <li><i>★</i> 3-Night Hotel Stay</li>
+            <li><i>★</i> Access to Special Area at Main Stage</li>
+            <li><i>★</i> Alongside the DJ Experience</li>
+            <li><i>★</i> All VIP Standing Benefits</li>
+            <li><i>★</i> Fast Track Entry</li>
+          </ul>
+          
+          <div class="text-center">
+            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

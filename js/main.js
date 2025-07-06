@@ -32,7 +32,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Package Selection - Only scroll to hotels
+    // Package Modal Buttons
+    document.querySelectorAll('.package-modal-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const modalId = this.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        });
+    });
+
+    // Close package modals when clicking the close button
+    document.querySelectorAll('.modal .close-modal').forEach(closeBtn => {
+        closeBtn.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    // Close package modals when clicking outside
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    // Package Selection - Only scroll to hotels (for old buttons)
     document.querySelectorAll('.package-select-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -245,11 +277,20 @@ document.addEventListener('DOMContentLoaded', function() {
     bookNowButtons.forEach(button => {
         button.addEventListener('click', function() {
             const hotelName = this.getAttribute('data-hotel');
+            const packageType = this.getAttribute('data-package');
+            const packagePrice = this.getAttribute('data-price');
+            
             modal.style.display = 'flex';
             
             // Set the selected hotel in the dropdown
             if (hotelSelect && hotelName) {
                 hotelSelect.value = hotelName;
+            }
+            
+            // Store package information for form submission
+            if (packageType) {
+                modal.setAttribute('data-selected-package', packageType);
+                modal.setAttribute('data-selected-price', packagePrice);
             }
         });
     });
@@ -366,6 +407,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     const formData = new FormData(bookingForm);
                     const data = Object.fromEntries(formData.entries());
 
+                    // Get package information from modal
+                    const selectedPackage = modal.getAttribute('data-selected-package') || 'Not selected';
+                    const selectedPrice = modal.getAttribute('data-selected-price') || 'Not specified';
+                    
                     // Prepare email template parameters
                     const templateParams = {
                         to_email: 'zalim.tsorion@gmail.com',
@@ -375,6 +420,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         hotel: data.hotel || 'Not selected',
                         travelers: data.travelers,
                         notes: data.notes || 'No additional notes',
+                        package: selectedPackage,
+                        price: selectedPrice,
                         subject: 'New BEONIX Festival 2025 Booking Request'
                     };
 
