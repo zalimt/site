@@ -699,7 +699,7 @@
       display: flex;
       flex-direction: column;
       height: 100%;
-      min-height: 520px;
+      min-height: 440px;
     }
 
     .package-card.selected {
@@ -1433,6 +1433,13 @@
       color: #ff6633;
     }
 
+    .hotel-note {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
     /* Extended Stay Section */
     .extended-stay {
       padding: 4rem 0;
@@ -1563,7 +1570,7 @@
     .modal .package-cards {
       display: flex;
       flex-direction: row;
-      gap: 2rem;
+      gap: 20px;
       justify-content: center;
       align-items: stretch;
       flex-wrap: nowrap;
@@ -1580,7 +1587,7 @@
       border-radius: 12px;
       box-shadow: 0 2px 24px 0 rgba(0,0,0,0.25);
       margin: 0 0.5rem;
-      padding: 40px 0;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -2052,5 +2059,64 @@
       .thank-you-actions .btn {
         width: 100%;
         max-width: 250px;
+      }
+    }
+
+    .transfer-only {
+      padding-bottom: 90px;
+    }
+
+    .transfer-only span {
+      font-size: 20px;
+      display: block;
+      margin-top: -10px;
+    }
+
+    .transfer-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: stretch;
+      margin-top: 2rem;
+    }
+
+    .transfer-card {
+      background: #181818;
+      border-radius: 12px;
+      box-shadow: 0 2px 24px 0 rgba(0,0,0,0.25);
+      padding: 40px 30px;
+      min-width: 220px;
+      max-width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .transfer-card h3 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: var(--accent-primary);
+    }
+
+    .transfer-card div {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+
+    @media (max-width: 700px) {
+      .transfer-cards {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+      }
+      .transfer-card {
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+        margin: 0 auto;
       }
     }
