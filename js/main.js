@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
+
     // Package Selection - Only scroll to hotels (for old buttons)
     document.querySelectorAll('.package-select-btn').forEach(button => {
         button.addEventListener('click', function(e) {
