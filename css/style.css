@@ -731,6 +731,8 @@
       font-weight: 700;
       margin-bottom: 10px;
       color: var(--accent-primary);
+      line-height: 140%;
+      min-height: 60px;
     }
 
     .package-price {
@@ -1528,7 +1530,7 @@
       position: relative;
       background: var(--dark-bg);
       width: 100vw;
-      max-width: 100vw;
+      max-width: 1400px;
       left: 0;
       right: 0;
       margin: 0;
@@ -1543,7 +1545,7 @@
 
     .modal-content > .close-modal {
       position: absolute;
-      top: 1.5rem;
+      top: 0;
       right: 2rem;
       font-size: 2.5rem;
       font-weight: bold;
@@ -1582,7 +1584,7 @@
       align-items: stretch;
       flex-wrap: nowrap;
       margin-bottom: 1rem;
-      overflow-x: auto;
+      /* overflow-x: auto; */
       padding-bottom: 1rem;
     }
 
@@ -1620,6 +1622,79 @@
       scrollbar-width: none;
     }
 
+    /* Hotel Selection in Modals */
+    .modal .hotel-selection {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      clear: both;
+    }
+
+    .modal .hotel-selection .section-title {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      color: var(--text-light);
+    }
+
+    .modal .hotel-selection .hotel-note {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--text-gray);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .modal .hotel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .modal .hotel-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .modal .hotel-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 15px rgba(255, 102, 51, 0.3);
+    }
+
+    .modal .hotel-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .modal .hotel-content {
+      padding: 1.2rem;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    .modal .hotel-content h3 {
+      margin: 0 0 0.8rem;
+      font-size: 1.3rem;
+    }
+
+    .modal .hotel-package {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal .hotel-price {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
     .modal .package-header {
       margin-bottom: 1.5rem;
       text-align: center;
@@ -1651,6 +1726,10 @@
       background: #ff4400;
       color: #fff;
       box-shadow: 0 0 20px rgba(255,102,51,0.25);
+    }
+
+    #bookingModal {
+      z-index: 9999;
     }
 
     @media (max-width: 900px) {
@@ -1996,6 +2075,7 @@
     .form-actions .btn {
       flex: 1;
       margin: 0;
+      min-width: fit-content;
     }
 
     @media (max-width: 600px) {
@@ -2089,7 +2169,7 @@
     .transfer-only span {
       font-size: 20px;
       display: block;
-      margin-top: -10px;
+      margin-top: 10px;
     }
 
     .transfer-cards {
@@ -2138,5 +2218,89 @@
         min-width: 0;
         width: 100%;
         margin: 0 auto;
+      }
+    }
+
+    /* Additional Services Section */
+    .additional-services {
+      padding: 80px 0;
+      background: var(--dark);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .service-item {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .service-item:hover {
+      border-color: rgba(255, 102, 51, 0.5);
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255, 102, 51, 0.2);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+      color: var(--light);
+    }
+
+    .service-item h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--light);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .services-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .services-cta p {
+      font-size: 1.1rem;
+      color: var(--gray-light);
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      
+      .service-item {
+        padding: 1.5rem;
+      }
+      
+      .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .service-item h3 {
+        font-size: 1.1rem;
       }
     }
