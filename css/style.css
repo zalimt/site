@@ -674,6 +674,11 @@
       font-size: 14px;
     }
 
+    .lineup-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
     /* Packages Section */
     .packages {
       padding: 100px 0;
@@ -701,6 +706,20 @@
       flex-direction: column;
       height: 100%;
       min-height: 470px;
+    }
+
+    .package-card .stripe-link {
+      display: inline-block;
+      padding: 13px 2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      background: #ff6633;
+      color: #fff;
+      font-size: 13.5px;
     }
 
     .package-card.selected {

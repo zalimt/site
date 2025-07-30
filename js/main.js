@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // All other BOOK NOW buttons - open modal
-    const allBookNowButtons = document.querySelectorAll('.btn-primary:not(.nav-desktop .btn-primary), .package-select-btn, .booking-btn');
+    const allBookNowButtons = document.querySelectorAll('.btn-primary:not(.nav-desktop .btn-primary):not(.book-direct-btn):not(.stripe-link), .package-select-btn, .booking-btn');
     allBookNowButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
@@ -154,9 +154,13 @@ document.addEventListener('DOMContentLoaded', function() {
             required: true,
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         },
-        country: {
+        phone: {
             required: true,
-            minLength: 2
+            minLength: 8,
+            pattern: /^[\+]?[1-9][\d]{0,15}$/
+        },
+        package: {
+            required: true
         },
         hotel: {
             required: true
@@ -390,11 +394,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Validate required fields
                 const name = bookingForm.querySelector('#name').value.trim();
                 const email = bookingForm.querySelector('#email').value.trim();
-                const country = bookingForm.querySelector('#country').value.trim();
+                const phone = bookingForm.querySelector('#phone').value.trim();
+                const package = bookingForm.querySelector('#package').value.trim();
                 const hotel = bookingForm.querySelector('#hotel').value.trim();
                 const travelers = bookingForm.querySelector('#travelers').value.trim();
                 
-                if (!name || !email || !country || !hotel || !travelers) {
+                if (!name || !email || !phone || !package || !hotel || !travelers) {
                     alert('Please fill in all required fields.');
                     return;
                 }
@@ -418,12 +423,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         to_email: 'zalim.tsorion@gmail.com',
                         from_name: data.name,
                         from_email: data.email,
-                        country: data.country,
+                        phone: data.phone,
+                        package: data.package,
                         hotel: data.hotel || 'Not selected',
                         travelers: data.travelers,
                         notes: data.notes || 'No additional notes',
-                        package: selectedPackage,
-                        price: selectedPrice,
                         subject: 'New BEONIX Festival 2025 Booking Request'
                     };
 

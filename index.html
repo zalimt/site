@@ -49,7 +49,8 @@
   }
   </script>
   
-  <link rel="stylesheet" href="css/style.css?v=8.0">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="css/style.css?v=9.0">
   <!-- Font Awesome CDN for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -169,7 +170,7 @@
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-primary package-modal-btn" data-modal="ticketTransferModal">CHOOSE PACKAGE</button>
+            <button class="btn stripe-link package-modal-btn" data-modal="ticketTransferModal">CHOOSE PACKAGE</button>
           </div>
         </div>
         
@@ -187,7 +188,7 @@
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-primary package-modal-btn" data-modal="ticketHotelTransferModal">CHOOSE PACKAGE</button>
+            <button class="btn btn-primary book-now-btn">CHOOSE PACKAGE</button>
           </div>
         </div>
         
@@ -204,7 +205,7 @@
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-primary package-modal-btn" data-modal="ticketHotelModal">CHOOSE PACKAGE</button>
+            <button class="btn btn-primary book-now-btn">CHOOSE PACKAGE</button>
           </div>
         </div>
 
@@ -221,7 +222,7 @@
           </ul>
           
           <div class="text-center">
-            <button class="btn btn-primary package-modal-btn" data-modal="hotelTransferModal">CHOOSE PACKAGE</button>
+            <button class="btn btn-primary book-now-btn">CHOOSE PACKAGE</button>
           </div>
         </div>
       </div>
@@ -237,22 +238,22 @@
         <div class="transfer-card">
           <h3>3 DAYS PASS</h3>
           <div>60€</div>
-          <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          <a href="https://buy.stripe.com/4gM14ocQadYB8Hs10Y2ZO0a" class="btn btn-primary book-direct-btn" target="_blank">BOOK</a>
         </div>
         <div class="transfer-card">
           <h3>1 DAY FRIDAY</h3>
           <div>25€</div>
-          <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          <a href="https://buy.stripe.com/00waEY7vQf2Fg9UgZW2ZO0b" class="btn btn-primary book-direct-btn" target="_blank">BOOK</a>
         </div>
         <div class="transfer-card">
           <h3>1 DAY SATURDAY</h3>
           <div>25€</div>
-          <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          <a href="https://buy.stripe.com/5kQeVe7vQbQt9LwbFC2ZO0c" class="btn btn-primary book-direct-btn" target="_blank">BOOK</a>
         </div>
         <div class="transfer-card">
           <h3>1 DAY SUNDAY</h3>
           <div>25€</div>
-          <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+          <a href="https://buy.stripe.com/7sYdRa5nI2fT1f04da2ZO0d" class="btn btn-primary book-direct-btn" target="_blank">BOOK</a>
         </div>
       </div>
     </div>
@@ -312,6 +313,10 @@
             <img src="images/anfisa-letyago.webp" alt="Anfisa Letyago">
           </div>
         </div>
+        
+        <div class="lineup-cta">
+          <a href="https://beonix.art/lineup" target="_blank" class="btn btn-secondary">AND MANY MORE</a>
+        </div>
       </div>
     </section>
 
@@ -356,6 +361,17 @@
             <p class="hotel-package">3 nights + Full Pass + Transfers</p>
             <p class="hotel-price">From €899</p>
             <button class="btn btn-primary book-now-btn" data-hotel="Four Seasons">BOOK NOW</button>
+            <!-- <a href="#" class="hotel-info-link">View Hotel Info</a> -->
+          </div>
+        </div>
+
+        <div class="hotel-card">
+          <img src="images/hotels/s-paul.webp" alt="S Paul Hotel" loading="lazy">
+          <div class="hotel-content">
+            <h3>S Paul</h3>
+            <p class="hotel-package">3 nights + Full Pass + Transfers</p>
+            <p class="hotel-price">From €499</p>
+            <button class="btn btn-primary book-now-btn" data-hotel="S Paul">BOOK NOW</button>
             <!-- <a href="#" class="hotel-info-link">View Hotel Info</a> -->
           </div>
         </div>
@@ -457,17 +473,27 @@
           <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
-          <label for="country">Country</label>
-          <input type="text" id="country" name="country" required>
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="package">Package</label>
+          <select id="package" name="package" required>
+            <option value="">Choose a package...</option>
+            <option value="Ticket+Hotel">Ticket + Hotel</option>
+            <option value="Ticket+Transfer+Hotel">Ticket + Transfer + Hotel</option>
+            <option value="Transfer+Hotel">Transfer + Hotel</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="hotel">Selected Hotel</label>
           <select id="hotel" name="hotel" required>
             <option value="">Choose a hotel...</option>
-            <option value="Four Seasons">Four Seasons - From €899 per person</option>
-            <option value="Grand Resort">Grand Resort - From €799 per person</option>
+            <option value="S Paul">S Paul - From €499 per person</option>
             <option value="NYX">NYX Hotel - From €599 per person</option>
             <option value="Crowne Plaza">Crowne Plaza Limassol - From €649 per person</option>
+            <option value="Grand Resort">Grand Resort - From €799 per person</option>
+            <option value="Four Seasons">Four Seasons - From €899 per person</option>
           </select>
         </div>
         <div class="form-group">
@@ -511,7 +537,7 @@
           </ul>
           
           <div class="text-center">
-            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+            <a href="https://buy.stripe.com/fZu4gAg2m9Il5vgeRO2ZO00" target="_blank" class="btn btn-primary book-direct-btn">BOOK</a>
           </div>
         </div>
         
@@ -533,7 +559,7 @@
           </ul>
           
           <div class="text-center">
-            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+            <a href="https://buy.stripe.com/aFa00k6rM5s5cXIfVS2ZO01" target="_blank" class="btn btn-primary book-direct-btn">BOOK</a>
           </div>
         </div>
         
@@ -554,7 +580,7 @@
           </ul>
           
           <div class="text-center">
-            <a href="#" class="btn btn-primary book-direct-btn">BOOK</a>
+            <a href="https://buy.stripe.com/eVq6oIcQa9Il2j42522ZO03" target="_blank" class="btn btn-primary book-direct-btn">BOOK</a>
           </div>
         </div>
       </div>
