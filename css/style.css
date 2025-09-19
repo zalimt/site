@@ -2323,3 +2323,340 @@
         font-size: 1.1rem;
       }
     }
+
+    /* Shuttle Stops Section */
+    .shuttles {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+      position: relative;
+    }
+
+    .shuttles::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(255, 102, 51, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 50%, rgba(255, 102, 51, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .shuttles .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .shuttles .section-subtitle {
+      text-align: center;
+      color: var(--text-gray);
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    /* Tab Navigation */
+    .shuttle-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+      gap: 1rem;
+    }
+
+    .shuttle-tab {
+      background: transparent;
+      border: 2px solid #333;
+      color: var(--text-gray);
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Gilroy', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .shuttle-tab:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 0 15px rgba(255, 102, 51, 0.3);
+    }
+
+    .shuttle-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 0 20px rgba(255, 102, 51, 0.4);
+    }
+
+    /* Shuttle Content */
+    .shuttle-content {
+      display: none !important;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+
+    .shuttle-content.active {
+      display: block !important;
+      opacity: 1;
+    }
+
+    /* Shuttle Map */
+    .shuttle-map {
+      margin-bottom: 3rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 102, 51, 0.1);
+    }
+
+    .shuttle-map img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .shuttle-map img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 48px rgba(255, 102, 51, 0.2);
+    }
+
+    /* Shuttle Map Link */
+    .shuttle-map-link {
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .map-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      gap: 0.5rem;
+    }
+
+    .shuttle-map-link:hover .map-overlay {
+      opacity: 1;
+    }
+
+    .map-overlay i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .map-overlay span {
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+
+    .shuttle-route {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .route-stops {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Stop Items */
+    .stop-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .stop-item:hover {
+      background: rgba(255, 102, 51, 0.05);
+      transform: translateX(5px);
+    }
+
+    .stop-item:hover .stop-number {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 0 15px rgba(255, 102, 51, 0.4);
+    }
+
+    .stop-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      border: 2px solid #555;
+    }
+
+    .stop-info {
+      flex: 1;
+    }
+
+    .stop-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+      transition: color 0.3s ease;
+    }
+
+    .stop-item:hover .stop-name {
+      color: var(--primary);
+    }
+
+    .stop-location {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Route Lines */
+    .route-line {
+      width: 3px;
+      height: 30px;
+      background: linear-gradient(to bottom, #666, #333);
+      margin: 0 auto;
+      margin-left: 18.5px;
+      position: relative;
+    }
+
+    .route-line::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+
+    /* Special styling for Festival stops */
+    .stop-item[data-stop="1"] .stop-number,
+    .stop-item[data-stop="13"] .stop-number {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(255, 102, 51, 0.3);
+    }
+
+    .stop-item[data-stop="1"] .stop-name,
+    .stop-item[data-stop="13"] .stop-name {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .shuttles {
+        padding: 60px 0;
+      }
+
+      .shuttle-tabs {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .shuttle-tab {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+
+      .shuttle-map {
+        margin-bottom: 2rem;
+        padding: 1rem;
+      }
+
+      .shuttle-route {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .stop-item {
+        padding: 0.8rem 0;
+      }
+
+      .stop-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+
+      .route-line {
+        margin-left: 16px;
+        height: 25px;
+      }
+
+      .stop-name {
+        font-size: 1rem;
+      }
+
+      .stop-location {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .shuttles .section-title {
+        font-size: 1.8rem;
+      }
+
+      .shuttle-route {
+        gap: 1.5rem;
+      }
+
+      .stop-item {
+        gap: 0.8rem;
+      }
+
+      .stop-number {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+      }
+
+      .route-line {
+        margin-left: 14.5px;
+        height: 20px;
+      }
+    }

@@ -472,4 +472,79 @@ document.addEventListener('DOMContentLoaded', function() {
             thankYouModal.style.display = 'none';
         }
     });
+
+    // Shuttle Tabs Functionality
+    console.log('Initializing shuttle functionality...');
+    
+    const shuttleTabs = document.querySelectorAll('.shuttle-tab');
+    const shuttleContents = document.querySelectorAll('.shuttle-content');
+    
+    console.log('Found shuttle tabs:', shuttleTabs.length);
+    console.log('Found shuttle contents:', shuttleContents.length);
+
+    if (shuttleTabs.length > 0 && shuttleContents.length > 0) {
+        shuttleTabs.forEach((tab, index) => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Shuttle tab clicked:', this.getAttribute('data-tab'));
+                
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                shuttleTabs.forEach(t => t.classList.remove('active'));
+                shuttleContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Show corresponding content
+                const targetContent = document.getElementById(targetTab);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                    console.log('Activated content:', targetTab);
+                } else {
+                    console.error('Target content not found:', targetTab);
+                }
+            });
+        });
+    } else {
+        console.error('Shuttle tabs or contents not found!');
+    }
+
+    // Make stop names clickable for Google Maps links
+    setTimeout(() => {
+        const stopItems = document.querySelectorAll('.stop-item');
+        console.log('Found stop items:', stopItems.length);
+        
+        stopItems.forEach((stopItem, index) => {
+            stopItem.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Stop item clicked:', index);
+                
+                const stopNameElement = this.querySelector('.stop-name');
+                const stopName = stopNameElement ? stopNameElement.textContent : 'Unknown';
+                const mapsUrl = this.getAttribute('data-maps-url');
+                
+                console.log('Stop name:', stopName);
+                console.log('Maps URL:', mapsUrl);
+                
+                if (mapsUrl && mapsUrl.trim() !== '') {
+                    // Open Google Maps link in new tab
+                    try {
+                        window.open(mapsUrl, '_blank');
+                        console.log('Opened maps URL:', mapsUrl);
+                    } catch (error) {
+                        console.error('Error opening maps URL:', error);
+                    }
+                } else {
+                    // Show a visual feedback that the stop is clickable
+                    this.style.background = 'rgba(255, 102, 51, 0.1)';
+                    setTimeout(() => {
+                        this.style.background = '';
+                    }, 200);
+                    console.log(`Clicked on: ${stopName} (No maps URL configured yet)`);
+                }
+            });
+        });
+    }, 1000); // Wait 1 second to ensure all content is loaded
 });
